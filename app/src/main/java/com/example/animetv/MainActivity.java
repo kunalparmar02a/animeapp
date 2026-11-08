@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.os.SystemClock;
 import android.view.KeyEvent;
-import android.Sview.MotionEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
