@@ -25,7 +25,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
     // >>>>>>>>>>  CHANGE THIS TO YOUR SITE  <<<<<<<<<<
-    private static final String START_URL = "https://example.com";
+    private static final String START_URL = "https://hianime.ba/";
 
     private FrameLayout root;
     private WebView web;
