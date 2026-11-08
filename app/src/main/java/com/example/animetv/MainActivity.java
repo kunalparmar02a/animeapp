@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.os.SystemClock;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
+import android.Sview.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -24,7 +24,6 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-    // >>>>>>>>>>  CHANGE THIS TO YOUR SITE  <<<<<<<<<<
     private static final String START_URL = "https://hianime.ba/";
 
     private FrameLayout root;
@@ -109,14 +108,19 @@ public class MainActivity extends Activity {
 
             @Override
             public void onHideCustomView() {
-                if (customView == null) return;
-                root.removeView(customView);
-                customView = null;
-                if (customCallback != null) customCallback.onCustomViewHidden();
-                web.setVisibility(View.VISIBLE);
-                cursor.setVisibility(cursorMode ? View.VISIBLE : View.GONE);
+                hideCustomView();
             }
         });
+    }
+
+    private void hideCustomView() {
+        if (customView == null) return;
+        root.removeView(customView);
+        customView = null;
+        if (customCallback != null) customCallback.onCustomViewHidden();
+        customCallback = null;
+        web.setVisibility(View.VISIBLE);
+        cursor.setVisibility(cursorMode ? View.VISIBLE : View.GONE);
     }
 
     private void goImmersive() {
@@ -175,10 +179,10 @@ public class MainActivity extends Activity {
             case KeyEvent.KEYCODE_DPAD_LEFT:  cx -= step; break;
             case KeyEvent.KEYCODE_DPAD_RIGHT: cx += step; break;
             case KeyEvent.KEYCODE_DPAD_UP:
-                if (cy <= edge) web.scrollBy(0, (int) -step * 3); else cy -= step;
+                if (cy <= edge) web.scrollBy(0, -(int) (step * 3)); else cy -= step;
                 break;
             case KeyEvent.KEYCODE_DPAD_DOWN:
-                if (cy >= h - edge) web.scrollBy(0, (int) step * 3); else cy += step;
+                if (cy >= h - edge) web.scrollBy(0, (int) (step * 3)); else cy += step;
                 break;
         }
         cx = Math.max(0, Math.min(w - 1, cx));
@@ -199,7 +203,7 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         if (customView != null) {
-            web.getWebChromeClient().onHideCustomView();
+            hideCustomView();
         } else if (web.canGoBack()) {
             web.goBack();
         } else {
